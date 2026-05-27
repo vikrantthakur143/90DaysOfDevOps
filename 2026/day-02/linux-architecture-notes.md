@@ -28,9 +28,4 @@ touch myfile.txt
 
 # Monitory resources
 top -c
-
 ```
-
-
-# Keep it short and practical (under 1 page)
-# Use bullet points and short headings
