@@ -1,7 +1,10 @@
+```bash
 ps auxf | grep -i sshd
 meta        5404  0.0  0.1   6376  2244 pts/3    S+   02:34   0:00  \_ grep --color=auto -i sshd
+```
 
 
+```bash
 systemctl status sshd
 ● sshd.service - OpenSSH server daemon
      Loaded: loaded (/usr/lib/systemd/system/sshd.service; enabled; preset: enabled)
@@ -15,7 +18,10 @@ systemctl status sshd
         CPU: 87ms
      CGroup: /system.slice/sshd.service
              └─1364 "sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups"
+```
 
+
+```bash
 May 27 13:41:02 host.example.com sshd[1364]: Server listening on :: port 22.
 May 27 13:41:02 host.example.com systemd[1]: Started sshd.service - OpenSSH server daemon.
 May 27 14:17:19 host.example.com sshd-session[1614]: Accepted publickey for meta from 192.168.100.1 port>
@@ -26,11 +32,14 @@ May 27 23:17:19 host.example.com sshd-session[3932]: Accepted publickey for meta
 May 27 23:17:19 host.example.com sshd-session[3932]: pam_unix(sshd:session): session opened for user met>
 May 27 23:17:23 host.example.com sshd-session[3930]: Accepted publickey for meta from 192.168.100.1 port>
 May 27 23:17:23 host.example.com sshd-session[3930]: pam_unix(sshd:session): session opened for user met>
+```
 
 
+```bash
 sudo cat /var/log/messages|grep -i ssh | tail -5
 May 27 13:40:59 host systemd[1]: sshd-keygen@ed25519.service - OpenSSH ed25519 Server Key Generation was skipped because of an unmet condition check (ConditionPathExists=!/run/systemd/generator.early/multi-user.target.wants/cloud-init.target).
 May 27 13:40:59 host systemd[1]: sshd-keygen@rsa.service - OpenSSH rsa Server Key Generation was skipped because of an unmet condition check (ConditionPathExists=!/run/systemd/generator.early/multi-user.target.wants/cloud-init.target).
 May 27 13:40:59 host systemd[1]: Reached target sshd-keygen.target.
 May 27 13:41:02 host systemd[1]: Starting sshd.service - OpenSSH server daemon...
 May 27 13:41:02 host systemd[1]: Started sshd.service - OpenSSH server daemon.
+```
