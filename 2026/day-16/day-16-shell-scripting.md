@@ -1,3 +1,4 @@
+```
 [root@rocky9 ~]# touch hello.sh
 [root@rocky9 ~]# vim hello.sh
 [root@rocky9 ~]# chmod +x hello.sh
@@ -12,3 +13,4 @@ Hello, I am VIK and I am a ADMIN
 /etc/passwd file exist.
 [root@rocky9 ~]# bash  file_check.sh /etc/passwd_no_file
 /etc/passwd_no_file file not exist.
+```
