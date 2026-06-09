@@ -4,7 +4,7 @@
 
 
 function greet() {
-	echo "Hello, $1"
+	echo "Hello, $1!"
 	
 }
 
