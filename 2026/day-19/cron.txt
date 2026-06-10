@@ -1,0 +1,9 @@
+
+
+
+0 2 * * * bash /root/log_rotate.sh > /dev/null 2>&1
+
+0 3 * * * bash /root/backup.sh > /dev/null 2>&1
+
+*/5 * * * * bash /root/health.sh > /dev/null 2>&1
+
