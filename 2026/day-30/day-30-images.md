@@ -26,3 +26,26 @@ docker image history nginx
 
 
 
+Task 3: Container Lifecycle
+Practice the full lifecycle on one container:
+Create a container (without starting it)
+Start the container
+Pause it and check status
+Unpause it
+Stop it
+Restart it
+Kill it
+Remove it
+Check docker ps -a after each step — observe the state changes.
+
+docker run -d -name web_server nginx
+docker start nginx
+docker pause nginx
+docker unpause nginx
+docker stop nginx
+docker restart nginx
+docker kill nginx
+docker rm -f nginx
+
+
+
