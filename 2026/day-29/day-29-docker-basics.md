@@ -35,3 +35,19 @@ docker rm web_server
 
 
 
+Task 4: Explore
+Run a container in detached mode — what's different?
+Give a container a custom name
+Map a port from the container to your host
+Check logs of a running container
+Run a command inside a running container
+
+
+
+docker run -d nginx
+docker run -d --name web_server nginx
+docker run -d -p 80:80 --name web_server nginx
+docker log nginx
+docker exec -it web_server bash
+
+
