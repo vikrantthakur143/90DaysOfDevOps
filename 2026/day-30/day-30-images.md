@@ -17,3 +17,12 @@ docker rmi alpine
 
 
 
+
+ask 2: Image Layers
+Run docker image history nginx — what do you see?
+Each line is a layer. Note how some layers show sizes and some show 0B
+Write in your notes: What are layers and why does Docker use them?
+docker image history nginx
+
+
+
