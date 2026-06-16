@@ -72,3 +72,18 @@ docker inspect web_server
 
 
 
+Task 5: Cleanup
+Stop all running containers in one command
+Remove all stopped containers in one command
+Remove unused images
+Check how much disk space Docker is using
+
+
+
+docker stop `docker ps -q`
+docker rm -f  `docker ps -aq`
+docker image prune
+docker system df
+
+
+
