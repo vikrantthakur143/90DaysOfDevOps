@@ -49,3 +49,26 @@ docker rm -f nginx
 
 
 
+
+
+
+Task 4: Working with Running Containers
+Run an Nginx container in detached mode
+View its logs
+View real-time logs (follow mode)
+Exec into the container and look around the filesystem
+Run a single command inside the container without entering it
+Inspect the container — find its IP address, port mappings, and mounts
+
+docker run -d --name web_server nginx
+docker logs web_server
+docker logs -f web_server
+docker exec -it web_server bash
+	df -Th
+	exit
+docker exec -it web_server df -Th
+docker inspect web_server
+
+
+
+
