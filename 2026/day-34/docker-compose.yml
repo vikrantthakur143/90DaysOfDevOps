@@ -1,0 +1,18 @@
+
+
+
+
+
+
+services:
+  web:
+    image: nginx:latest
+    container_name: web_server
+    ports:
+    - 80:80
+  db:
+    image: mariadb:latest
+    container_name: db_server
+  cache:
+    image: redis:latest
+    container_name: cache_server
