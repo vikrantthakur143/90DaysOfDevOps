@@ -170,8 +170,78 @@ docker kill db_server
 1. Instead of using a pre-built image for your app, use `build:` in your compose file to build from a Dockerfile
 2. Make a code change in your app
 3. Rebuild and restart with one command
+```bash
 
 
+
+
+
+
+services:
+
+  web:
+    # image: wordpress:latest
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        INSTALL_APPS: "${INSTALL_APPS}"
+    networks:
+    - wp_net
+    container_name: wp_server
+    ports:
+    - 80:80
+    depends_on:
+      db: { condition: service_healthy  }
+      cache: { condition: service_started }
+    environment:
+      WORDPRESS_DB_HOST: db_server
+      WORDPRESS_DB_USER: ${DB_USER}
+      WORDPRESS_DB_PASSWORD: ${DB_PASSWORD}
+      WORDPRESS_DB_NAME: ${DB_NAME}
+
+  db:
+    image: mariadb:latest
+    container_name: db_server
+    environment:
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MARIADB_DATABASE: ${DB_NAME}
+      MARIADB_USER: ${DB_USER}
+      MARIADB_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mariadb-admin", "ping", "-h", "localhost", "-u", "root", "-p${DB_ROOT_PASSWORD}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+    - wp_net
+    restart: on-failure
+
+  cache:
+    image: redis:latest
+    container_name: cache_server
+    networks:
+    - wp_net
+
+
+
+
+volumes:
+  db_data:  { name: db_data }
+
+networks:
+  wp_net:
+    name: wp_net
+    driver: bridge
+
+
+
+docker compose up -d --build
+
+
+```
 
 ---
 
