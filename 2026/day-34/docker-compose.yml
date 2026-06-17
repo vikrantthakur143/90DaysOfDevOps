@@ -7,15 +7,15 @@
 services:
 
   web:
-    # image: wordpress:latest
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-      args:
-        INSTALL_APPS: "${INSTALL_APPS}"
+    image: wordpress:latest
+    # build:
+    #   context: ./frontend
+    #   dockerfile: Dockerfile
+    #   args:
+    #     INSTALL_APPS: "${INSTALL_APPS}"
     networks:
     - wp_net
-    container_name: wp_server
+    # container_name: wp_server
     ports:
     - 80:80
     depends_on:
@@ -48,7 +48,7 @@ services:
 
   cache:
     image: redis:latest
-    container_name: cache_server
+    # container_name: cache_server
     networks:
     - wp_net
 

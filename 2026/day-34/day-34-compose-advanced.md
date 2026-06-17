@@ -256,7 +256,9 @@ docker compose up -d --build
 1. Try scaling your web app to 3 replicas using `docker compose up --scale`
 2. What happens? What breaks?
 3. Write in your notes: Why doesn't simple scaling work with port mapping?
-
+```bash
+docker compose up -d --scale cache=3
+```
 ---
 
 ## Hints
