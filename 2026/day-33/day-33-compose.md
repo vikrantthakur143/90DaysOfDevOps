@@ -102,3 +102,35 @@ docker compose up -d --volumes
 ```
 ---
 
+
+
+Task 4: Compose Commands
+Practice and document these:
+
+Start services in detached mode
+View running services
+View logs of all services
+View logs of a specific service
+Stop services without removing
+Remove everything (containers, networks)
+Rebuild images if you make a change
+```bash
+docker compose up
+docker compose ls
+docker compose ps
+docker compose logs
+docker compose logs -f
+docker compose stop
+docker compose down --volumes
+docker compose up -d
+```
+---
+
+
+
+
+
+
+
+
+
