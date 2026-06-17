@@ -30,6 +30,63 @@ services:
 3. Use `depends_on` with `condition: service_healthy` so the app waits for the database to be truly ready, not just started
 
 **Test:** Bring everything down and up — does the app wait for the DB?
+```bash
+
+
+
+
+
+
+services:
+
+  web:
+    image: wordpress:latest
+    container_name: wp_server
+    ports:
+    - 80:80
+    depends_on:
+      db: { condition: service_healthy  }
+      cache: { condition: service_started }
+    environment:
+      WORDPRESS_DB_HOST: db_server
+      WORDPRESS_DB_USER: ${DB_USER}
+      WORDPRESS_DB_PASSWORD: ${DB_PASSWORD}
+      WORDPRESS_DB_NAME: ${DB_NAME}
+
+  db:
+    image: mariadb:latest
+    container_name: db_server
+    environment:
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MARIADB_DATABASE: ${DB_NAME}
+      MARIADB_USER: ${DB_USER}
+      MARIADB_PASSWORD: ${DB_PASSWORD}
+    healthcheck:
+      test: ["CMD", "mariadb-admin", "ping", "-h", "localhost", "-u", "root", "-p${DB_ROOT_PASSWORD}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  cache:
+    image: redis:latest
+    container_name: cache_server
+
+
+
+# .env
+DB_ROOT_PASSWORD: my_secure_root_pass
+DB_NAME: app_db
+DB_USER: app_user
+DB_PASSWORD: app_secure_pass
+
+
+
+docker compose up -d
+
+
+```
+
+
 
 ---
 
