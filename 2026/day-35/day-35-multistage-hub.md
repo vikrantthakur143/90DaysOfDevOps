@@ -111,6 +111,48 @@ Apply these to one of your images and rebuild:
 
 Check the size before and after.
 
+```bash
+cat <<EOF > Dockerfile
+FROM python:3.9 AS builder
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends gcc default-libmysqlclient-dev pkg-config && \
+    rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt .
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+
+
+FROM python:3.9-slim AS runner
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends libmariadb3 && \
+    rm -rf /var/lib/apt/lists/*
+
+COPY --from=builder /usr/local/lib/python3.9/site-packages/ /usr/local/lib/python3.9/site-packages/
+
+RUN useradd -m appuser
+
+USER appuser
+
+WORKDIR /home/appuser
+
+CMD ["python3", "-c", "print('Hello World')"]
+EOF
+
+docker build -t my_os:latest . -f .\Dockerfiles
+
+docker run --rm --name my_os my_os:latest sleep 600
+
+docker exec -it my_os sh
+id
+pwd
+```
+
 ---
 
 ## Hints
