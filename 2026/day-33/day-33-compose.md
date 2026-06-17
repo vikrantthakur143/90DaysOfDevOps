@@ -128,6 +128,62 @@ docker compose up -d
 
 
 
+Task 5: Environment Variables
+Add environment variables directly in your docker-compose.yml
+Create a .env file and reference variables from it in your compose file
+Verify the variables are being picked up
+```bash
+services:
+  wp:
+    image: wordpress:latest
+    networks:
+    - wp_net
+    container_name: wp_server
+    ports:
+    - 80:80
+    environment:
+      WORDPRESS_DB_HOST: db_server
+      WORDPRESS_DB_USER: ${DB_USER}
+      WORDPRESS_DB_PASSWORD: ${DB_PASSWORD}
+      WORDPRESS_DB_NAME: ${DB_NAME}
+
+  db:
+    image: mariadb
+    container_name: db_server
+    volumes:
+    - db_data:/var/lib/mysql
+    networks:
+    - wp_net
+    environment:
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MARIADB_DATABASE: ${DB_NAME}
+      MARIADB_USER: ${DB_USER}
+      MARIADB_PASSWORD: ${DB_PASSWORD}
+
+volumes:
+  db_data:  { name: db_data }
+
+networks:
+  wp_net:
+    name: wp_net
+    driver: bridge
+
+
+
+
+#.env
+DB_ROOT_PASSWORD: my_secure_root_pass
+DB_NAME: app_db
+DB_USER: app_user
+DB_PASSWORD: app_secure_pass
+
+
+
+docker compose up -d
+```
+---
+
+
 
 
 
