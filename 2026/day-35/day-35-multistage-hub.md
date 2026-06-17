@@ -32,7 +32,50 @@ my_os:latest   306f86d35153       1.58GB          405MB
 3. Compare the two sizes
 
 Write in your notes: Why is the multi-stage image so much smaller?
+```bash
+cat <<EOF > requirements.txt
+Flask==2.0.1
+Flask-MySQLdb==0.2.0
+requests==2.26.0
+Werkzeug==2.2.2
+EOF
 
+cat <<"EOF" > Dockerfile
+FROM python:3.9 AS builder
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends gcc default-libmysqlclient-dev pkg-config && \
+    rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt .
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+
+
+FROM python:3.9-slim AS runner
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends libmariadb3 && \
+    rm -rf /var/lib/apt/lists/*
+
+COPY --from=builder /usr/local/lib/python3.9/site-packages/ /usr/local/lib/python3.9/site-packages/
+
+CMD ["python3", "-c", "print('Hello World')"]
+
+EOF
+
+docker build -t my_os:latest . -f .\Dockerfiles
+
+docker images my_os
+IMAGE          ID             DISK USAGE   CONTENT SIZE   EXTRA
+my_os:latest   c60b1d1900e8        218MB         51.9MB
+
+docker run --rm --name my_os my_os:latest
+
+```
 ---
 
 ### Task 3: Push to Docker Hub
@@ -41,7 +84,6 @@ Write in your notes: Why is the multi-stage image so much smaller?
 3. Tag your image properly: `yourusername/image-name:tag`
 4. Push it to Docker Hub
 5. Pull it on a different machine (or after removing locally) to verify
-
 ---
 
 ### Task 4: Docker Hub Repository
