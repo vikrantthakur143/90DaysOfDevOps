@@ -1,4 +1,6 @@
-Task 1: The Problem
+# Day 32 – Docker Volumes & Networking
+
+## Task 1: The Problem
 Run a Postgres or MySQL container
 Create some data inside it (a table, a few rows — anything)
 Stop and remove the container
@@ -27,7 +29,7 @@ docker run --name my-postgres -p 5432:5432 -e POSTGRES_PASSWORD=mysecretpassword
 
 
 
-Task 2: Named Volumes
+## Task 2: Named Volumes
 Create a named volume
 Run the same database container, but this time attach the volume to it
 Add some data, stop and remove the container
@@ -69,7 +71,7 @@ CREATE DATABASE company_db;
 
 
 
-Task 3: Bind Mounts
+## Task 3: Bind Mounts
 Create a folder on your host machine with an index.html file
 Run an Nginx container and bind mount your folder to the Nginx web directory
 Access the page in your browser
@@ -89,7 +91,7 @@ docker rm -f my-website
 
 
 
-Task 4: Docker Networking Basics
+## Task 4: Docker Networking Basics
 List all Docker networks on your machine
 Inspect the default bridge network
 Run two containers on the default bridge — can they ping each other by name?
@@ -125,7 +127,7 @@ docker rm -f serv2
 
 
 
-Task 5: Custom Networks
+## Task 5: Custom Networks
 Create a custom bridge network called my-app-net
 Run two containers on my-app-net
 Can they ping each other by name now?
@@ -157,7 +159,7 @@ docker rm -f serv2
 
 
 
-Task 6: Put It Together
+## Task 6: Put It Together
 Create a custom network
 Run a database container (MySQL/Postgres) on that network with a volume for data
 Run an app container (use any image) on the same network
