@@ -97,8 +97,10 @@ docker pull mygithubusername/my_os:latest
 2. Add a **description** to the repository
 3. Explore the **tags** tab — understand how versioning works
 4. Pull a specific tag vs `latest` — what happens?
-
+#Done
 ---
+
+
 
 ### Task 5: Image Best Practices
 Apply these to one of your images and rebuild:
