@@ -6,7 +6,7 @@ Create some data inside it (a table, a few rows — anything)
 Stop and remove the container
 Run a new one — is your data still there?
 
-
+```bash
 docker run --name my-postgres -p 5432:5432 -e POSTGRES_PASSWORD=mysecretpassword -d postgres
 docker exec  -it my-postgres bash
 
@@ -21,11 +21,8 @@ docker stop  my-postgres
 docker rm  my-postgres
 
 docker run --name my-postgres -p 5432:5432 -e POSTGRES_PASSWORD=mysecretpassword -d postgres
-
-
-
-
-
+```
+---
 
 
 
@@ -37,7 +34,7 @@ Run a brand new container with the same volume
 Is the data still there?
 Verify: docker volume ls, docker volume inspect
 
-
+```bash
 docker volume create postgres_data
 docker volume ls
 
@@ -54,7 +51,6 @@ CREATE TABLE employees  (id SERIAL PRIMARY KEY,first_name VARCHAR(50) NOT NULL,l
 docker stop  my-postgres
 docker rm  my-postgres
 
-
 docker run --name my-postgres -p 5432:5432 -e POSTGRES_PASSWORD=mysecretpassword -d -v postgres_data:/var/lib/postgresql/ postgres
 docker exec  -it my-postgres bash
 
@@ -63,11 +59,8 @@ CREATE DATABASE company_db;
 \c company_db;
 \dt
 \d employees
-
-
-
-
-
+```
+---
 
 
 
@@ -78,6 +71,7 @@ Access the page in your browser
 Edit the index.html on your host — refresh the browser
 Write in your notes: What is the difference between a named volume and a bind mount?
 
+```bash
 mkdir my-website
 echo "This is my first website" > my-website/index.html
 
@@ -86,8 +80,8 @@ http://localhost
 echo "This is my seconde website" >> my-website/index.html
 http://localhost
 docker rm -f my-website
-
-
+```
+---
 
 
 
@@ -97,7 +91,7 @@ Inspect the default bridge network
 Run two containers on the default bridge — can they ping each other by name?
 Run two containers on the default bridge — can they ping each other by IP?
 
-
+```bash
 docker network ls
 docker inspect bridge
 docker run -d --rm --name serv1 --network bridge busybox sleep 120
@@ -108,7 +102,6 @@ ping serv2
 ip a
 ping 172.17.0.3
 
-
 docker exec -it serv2
 ping serv1
 ip a
@@ -116,14 +109,8 @@ ping 172.17.0.2
 
 docker rm -f serv1
 docker rm -f serv2
-
-
-
-
-
-
-
-
+```
+---
 
 
 
@@ -133,6 +120,7 @@ Run two containers on my-app-net
 Can they ping each other by name now?
 Write in your notes: Why does custom networking allow name-based communication but the default bridge doesn't?
 
+```bash
 docker network ls
 docker network create my-app-net
 docker run -d --rm --name serv1 --network my-app-net busybox sleep 120
@@ -143,7 +131,6 @@ ping serv2
 ip a
 ping 172.19.0.3
 
-
 docker exec -it serv2 sh
 ping serv1
 ip a
@@ -151,12 +138,9 @@ ping 172.19.0.2
 
 docker rm -f serv1
 docker rm -f serv2
-
-----
-
+```
 ---
 
------
 
 
 ## Task 6: Put It Together
@@ -165,7 +149,7 @@ Run a database container (MySQL/Postgres) on that network with a volume for data
 Run an app container (use any image) on the same network
 Verify the app container can reach the database by container name
 
-
+```bash
 docker network ls
 docker network create my-app-net
 
@@ -174,4 +158,4 @@ docker volume create postgres_data
 
 docker run --name my-postgres -p 5432:5432 -e POSTGRES_PASSWORD=mysecretpassword -d --network my-app-net -v postgres_data:/var/lib/postgresql/ postgres
 docker run -d --rm --name my-app --network my-app-net busybox sleep 120
-
+```
