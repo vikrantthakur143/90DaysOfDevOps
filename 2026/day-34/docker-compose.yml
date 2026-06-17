@@ -7,7 +7,12 @@
 services:
 
   web:
-    image: wordpress:latest
+    # image: wordpress:latest
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        INSTALL_APPS: "${INSTALL_APPS}"
     networks:
     - wp_net
     container_name: wp_server
@@ -39,6 +44,7 @@ services:
       retries: 10
     networks:
     - wp_net
+    restart: on-failure
 
   cache:
     image: redis:latest
