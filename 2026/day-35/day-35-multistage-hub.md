@@ -84,6 +84,12 @@ docker run --rm --name my_os my_os:latest
 3. Tag your image properly: `yourusername/image-name:tag`
 4. Push it to Docker Hub
 5. Pull it on a different machine (or after removing locally) to verify
+```bash
+docker login
+docker tag my_os mygithubusername/my_os:latest
+docker push mygithubusername/my_os:latest
+docker pull mygithubusername/my_os:latest
+```
 ---
 
 ### Task 4: Docker Hub Repository
